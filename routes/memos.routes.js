@@ -4,8 +4,8 @@ import {
   getMemos,
   updateMemoStatus,
   archiveMemo,
-} from "../controllers/memoController.js";
-import { protect } from "../middleware/auth.js";
+} from "../controllers/memo.controller.js";
+import { protect } from "../middlewares/auth.js";
 
 const router = express.Router();
 
