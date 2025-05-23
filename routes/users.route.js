@@ -1,10 +1,10 @@
 import express from "express";
-import { protect, restrictTo } from "../middlewares/auth";
+import { protect, restrictTo } from "../middlewares/auth.js";
 import {
   deleteUser,
   getUsers,
   updateUser,
-} from "../controllers/user.controller";
+} from "../controllers/user.controller.js";
 
 const router = express.Router();
 
