@@ -2,8 +2,8 @@ import express from "express";
 import {
   createMemoField,
   getMemoFields,
-} from "../controllers/fieldController.js";
-import { protect, restrictTo } from "../middleware/auth.js";
+} from "../controllers/field.controller.js";
+import { protect, restrictTo } from "../middlewares/auth.js";
 
 const router = express.Router();
 
