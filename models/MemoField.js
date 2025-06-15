@@ -8,7 +8,7 @@ const memoFieldSchema = new mongoose.Schema({
     required: true,
   },
   required: { type: Boolean, default: false },
-  options: [{ type: String }], // For 'select' type fields
+  options: [{ type: String }],
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
