@@ -10,20 +10,16 @@ import fieldRoutes from "./routes/fields.route.js";
 dotenv.config();
 const app = express();
 
-// Connect to MongoDB
 connectDB();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/memos", memoRoutes);
 app.use("/api/fields", fieldRoutes);
 
-// Error handling
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
     message: err.message || "Server Error",
