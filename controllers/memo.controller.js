@@ -4,11 +4,9 @@ import MemoField from "../models/MemoField.js";
 import User from "../models/User.js";
 import { sendEmail } from "../utils/email.js";
 
-// Create and send memo
 const createMemo = asyncHandler(async (req, res) => {
   const { recipients, department, content } = req.body;
 
-  // Validate content against defined memo fields
   const fields = await MemoField.find();
   const contentKeys = Object.keys(content);
   for (const field of fields) {
@@ -18,7 +16,6 @@ const createMemo = asyncHandler(async (req, res) => {
     }
   }
 
-  // Validate recipients or department
   let recipientIds = [];
   if (recipients) {
     recipientIds = recipients;
@@ -30,7 +27,6 @@ const createMemo = asyncHandler(async (req, res) => {
     throw new Error("Must specify recipients or department");
   }
 
-  // Create status map for recipients
   const status = new Map();
   recipientIds.forEach((id) => {
     status.set(id.toString(), { status: "sent", timestamp: new Date() });
@@ -44,7 +40,6 @@ const createMemo = asyncHandler(async (req, res) => {
     status,
   });
 
-  // Send email notifications
   const recipientUsers = await User.find({ _id: { $in: recipientIds } });
   for (const user of recipientUsers) {
     await sendEmail({
@@ -57,7 +52,6 @@ const createMemo = asyncHandler(async (req, res) => {
   res.status(201).json(memo);
 });
 
-// Get memos for user
 const getMemos = asyncHandler(async (req, res) => {
   const memos = await Memo.find({
     $or: [{ recipients: req.user._id }, { department: req.user.department }],
@@ -65,7 +59,6 @@ const getMemos = asyncHandler(async (req, res) => {
   res.json(memos);
 });
 
-// Update memo status (e.g., read, acknowledged)
 const updateMemoStatus = asyncHandler(async (req, res) => {
   const { memoId, status } = req.body;
   const memo = await Memo.findById(memoId);
@@ -90,7 +83,6 @@ const updateMemoStatus = asyncHandler(async (req, res) => {
   res.json(memo);
 });
 
-// Archive memo
 const archiveMemo = asyncHandler(async (req, res) => {
   const { memoId } = req.params;
   const memo = await Memo.findById(memoId);
