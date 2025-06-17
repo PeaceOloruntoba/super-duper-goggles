@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
 import MemoField from "../models/MemoField.js";
 
-// Create new memo field (Admin only)
 const createMemoField = asyncHandler(async (req, res) => {
   const { name, type, required, options } = req.body;
 
@@ -16,7 +15,6 @@ const createMemoField = asyncHandler(async (req, res) => {
   res.status(201).json(field);
 });
 
-// Get all memo fields
 const getMemoFields = asyncHandler(async (req, res) => {
   const fields = await MemoField.find();
   res.json(fields);
