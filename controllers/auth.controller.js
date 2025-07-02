@@ -7,14 +7,15 @@ const generateToken = (id, role) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, role, department } = req.body;
-
+  const role = "Admin";
+  const { name, email, password, department } = req.body;
+  
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
     throw new Error("User already exists");
   }
-
+  
   const user = await User.create({
     name,
     email,

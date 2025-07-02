@@ -5,6 +5,7 @@ import { protect, restrictTo } from "../middlewares/auth.js";
 const router = express.Router();
 
 router.post("/register", protect, restrictTo("Admin"), registerUser);
+router.post("/signup", registerUser);
 router.post("/login", loginUser);
 
 export default router;
